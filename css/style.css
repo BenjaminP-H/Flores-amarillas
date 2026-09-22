@@ -1,97 +1,194 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;1,900&display=swap');
-*{
-    font-family: 'Poppins',cursive;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,800;0,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
-body{
+
+body {
     color: azure;
     width: 100%;
-    height: 82vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: black;
-    /* padding-top: -30; */
+    background: radial-gradient(circle at center, #161203 0%, #070707 65%, #000000 100%);
+    overflow: hidden;
+    padding: 20px;
+    text-align: center;
 }
 
-.botones{
-    padding: 9px;
-    border-radius: 80px;
+/* Contenedor del título con efecto LED */
+.greetings {
+    font-size: clamp(2.6rem, 7.5vw, 5.8rem);
+    font-weight: 900;
+    letter-spacing: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.35em;
+    margin-bottom: 12px;
+    user-select: none;
+}
+
+.greetings .palabra {
+    display: inline-flex;
+    white-space: nowrap;
+}
+
+/* Efecto LED dinámico en cada letra */
+.greetings span span {
+    display: inline-block;
+    animation: ledWave 2.8s ease-in-out infinite;
+    animation-delay: var(--d, 0s);
+}
+
+@keyframes ledWave {
+    0%, 100% {
+        color: #fffae6;
+        text-shadow: 
+            0 0 6px rgba(255, 235, 130, 0.9),
+            0 0 16px rgba(255, 215, 0, 0.8),
+            0 0 35px rgba(255, 180, 0, 0.65),
+            0 0 65px rgba(255, 140, 0, 0.45);
+        transform: translateY(0) scale(1);
+    }
+    14% {
+        color: #ffffff;
+        text-shadow: 
+            0 0 4px #ffffff,
+            0 0 12px #fff176,
+            0 0 25px #ffd54f,
+            0 0 50px #ffb300,
+            0 0 85px #ff8f00,
+            0 0 120px #ff6f00;
+        transform: translateY(-5px) scale(1.08);
+    }
+    28%, 82% {
+        color: #806b24;
+        text-shadow: 
+            0 0 3px rgba(255, 215, 0, 0.3),
+            0 0 10px rgba(255, 193, 7, 0.15);
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Descripción */
+.description {
+    font-size: clamp(1.1rem, 3vw, 1.45rem);
+    font-weight: 500;
+    color: #f7eecf;
+    margin-bottom: 35px;
+    letter-spacing: 3px;
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.35);
+    opacity: 0.95;
+}
+
+/* Contenedor del botón */
+.button {
+    position: relative;
+    z-index: 2;
+}
+
+/* Botón amarillo rediseñado */
+.boton-amarillo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 42px;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #1a1200;
+    background: linear-gradient(135deg, #ffe066 0%, #ffc107 50%, #ff9800 100%);
+    border: 2px solid #fff59d;
+    border-radius: 60px;
+    box-shadow: 
+        0 0 22px rgba(255, 215, 0, 0.5),
+        0 0 50px rgba(255, 179, 0, 0.3),
+        inset 0 1px 2px rgba(255, 255, 255, 0.8),
+        0 8px 25px rgba(0, 0, 0, 0.55);
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto de brillo que pasa por el botón */
+.boton-amarillo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.55),
+        transparent
+    );
+    transform: skewX(-25deg);
+    transition: 0.65s ease;
+}
+
+.boton-amarillo:hover {
+    transform: translateY(-4px) scale(1.05);
+    background: linear-gradient(135deg, #fff176 0%, #ffd54f 50%, #ffa000 100%);
+    border-color: #ffffff;
+    box-shadow: 
+        0 0 35px rgba(255, 215, 0, 0.85),
+        0 0 70px rgba(255, 160, 0, 0.55),
+        inset 0 1px 3px rgba(255, 255, 255, 1),
+        0 14px 28px rgba(0, 0, 0, 0.6);
+}
+
+.boton-amarillo:hover::before {
+    left: 140%;
+}
+
+.boton-amarillo:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 
+        0 0 18px rgba(255, 215, 0, 0.7),
+        0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Ícono de flor con rotación al pasar el mouse */
+.boton-amarillo .icono-flor {
+    font-size: 1.35em;
+    display: inline-block;
+    transition: transform 0.4s ease;
+}
+
+.boton-amarillo:hover .icono-flor {
+    transform: rotate(20deg) scale(1.15);
+}
+
+/* Compatibilidad si existieran clases previas */
+.botones {
     background-color: transparent;
     border: none;
 }
 
-.botones a{
-    background-color: #0a2be9;
-    padding: 9px;
-    border-radius: 80px;
-    -webkit-border-radius: 80px;
-    -moz-border-radius: 80px;
-    -ms-border-radius: 80px;
-    -o-border-radius: 80px;
-
-}
-
-.botones a:focus{
-    background-color: rgb(50, 194, 194);
-}
-
-.greetings{
-    font-size: 7rem;
-    font-weight: 900;
-}
-.greetings > span{
-    animation: glow 2.5s ease-in-out infinite;
-}
-@keyframes glow{
-    0%, 100%{
-        color: #fff;
-        text-shadow: 0 0 12px #39c6d6, 0 0 50px #39c6d6, 0 0 100px #39c6d6;
+@media screen and (max-width: 574px) {
+    .greetings {
+        letter-spacing: 3px;
+        gap: 0.25em;
     }
-    10%, 90%{
-        color: #111;
-        text-shadow: none;
+    .description {
+        letter-spacing: 2px;
+        margin-bottom: 25px;
     }
-}
-.greetings > span:nth-child(2){
-    animation-delay: .2s ;
-}
-.greetings > span:nth-child(3){
-    animation-delay: .4s ;
-}
-.greetings > span:nth-child(4){
-    animation-delay: .6s;
-}
-.greetings > span:nth-child(5){
-    animation-delay: .8s;
-}
-.greetings > span:nth-child(6){
-    animation-delay: 1s;
-}
-
-.description{
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-}
-
-.button a{
-    text-decoration: none;
-    font-size: 1rem;
-    color: #111;
-}
-
-@media screen and (max-width:574px){
-    .greetings{
-        display: block;
-        font-size: 4rem;
-        font-weight: 800;
-        text-align: center;
-    }
-    .description{
-        font-size: 2rem;
-    }
-    
-    .button a{
-        font-size: 1rem;
+    .boton-amarillo {
+        padding: 14px 30px;
+        letter-spacing: 2px;
     }
 }

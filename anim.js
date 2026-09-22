@@ -4,61 +4,101 @@ var lyrics = document.querySelector("#lyrics");
 
 // Array de objetos que contiene cada línea y su tiempo de aparición en segundos
 var lyricsData = [
-  { text: "At the time", time: 15 },
-  { text: "The whisper of birds", time: 18 },
-  { text: "Lonely before the sun cried", time: 27 },
-  { text: "Fell from the sky", time: 32 },
-  { text: "Like water drops", time: 33 },
-  { text: "Where I'm now? I don't know why", time: 41 },
-  { text: "Nice butterflies in my hands", time: 47 },
-  { text: "Too much light for twilight", time: 54 },
-  { text: "In the mood for the flowers love", time: 59 },
-  { text: "That vision", time: 67 },
-  { text: "Really strong, blew my mind", time: 72 },
-  { text: "Silence Let me see what it was", time: 78 },
-  { text: "I only want to live in clouds", time: 83 },
-  { text: "Where I'm now? I don't know why", time: 91 },
-  { text: "Nice butterflies in my hands", time: 97 },
-  { text: "Too much light for twilight", time: 104 },
-  { text: "In the mood for the flowers love", time: 108 },
-  { text: "At the time", time: 144 },
-  { text: "The whisper of birds", time: 148 },
-  { text: "Lonely before the sun cried", time: 153 },
-  { text: "Fell from the sky", time: 158 },
-  { text: "Like water drops", time: 164 },
-  { text: "Where I'm now? I don't know why", time: 169 },
-  { text: "Nice butterflies in my hands", time: 176 },
-  { text: "Too much light for twilight", time: 183 },
-  { text: "In the mood for the flowers", time: 188 },
-  { text: "Love.", time: 140 },
+  { text: "Él la estaba esperando", time: 18 },
+  { text: "Con una flor amarilla", time: 20 },
+  { text: "", time: 23 },
+  { text: "Ella lo estaba soñando", time: 26 },
+  { text: "Con la luz en su pupila", time: 28 },
+  { text: "", time: 31 },
+  { text: "Y el amarillo del sol", time: 33 },
+  { text: "Iluminaba la esquina", time: 35 },
+  { text: "", time: 39 },
+  { text: "Lo sentía tan cercano", time: 41 },
+  { text: "Lo sentía desde niña", time: 43 },
+  { text: "", time: 47 },
+  { text: "Ella sabía que él sabía", time: 48 },
+  { text: "Que algún día pasaría", time: 50 },
+  { text: "Que vendría él a buscarla", time: 52 },
+  { text: "Con sus flores amarillas", time: 54 },
+  { text: "", time: 59 },
+  { text: "No te apures, no detengas", time: 60 },
+  { text: "El instante del encuentro", time: 62 },
+  { text: "Está dicho que es un hecho", time: 64 },
+  { text: "No la pierdas, no hay derecho", time: 66 },
+  { text: "No te olvides que la vida", time: 68 },
+  { text: "Casi nunca está dormida", time: 72 },
+  { text: "", time: 76 },
+  { text: "En ese bar tan desierto", time: 94 },
+  { text: "Nos esperaba el encuentro", time: 97 },
+  { text: "", time: 100 },
+  { text: "Ella llegó en limusina", time: 102 },
+  { text: "Amarilla, por supuesto", time: 104 },
+  { text: "", time: 108 },
+  { text: "Él se acercó de repente", time: 110 },
+  { text: "La miró tan de frente", time: 112 },
+  { text: "", time: 116 },
+  { text: "Toda una vida soñada", time: 118 },
+  { text: "Y no pudo decir nada", time: 120 },
+  { text: "Ella sabía que él sabía", time: 124 },
+  { text: "Que algún día pasaría", time: 127 },
+  { text: "Que vendría él a buscarla", time: 129 },
+  { text: "Con sus flores amarillas", time: 131 },
+  { text: "", time: 136 },
+  { text: "No te apures, no detengas", time: 137 },
+  { text: "El instante del encuentro", time: 139 },
+  { text: "Está dicho que es un hecho", time: 141 },
+  { text: "No la pierdas, no hay derecho", time: 143 },
+  { text: "No te olvides que la vida", time: 145 },
+  { text: "Casi nunca está dormida", time: 149 },
+  { text: "", time: 153 },
+  { text: "Flores amarillas", time: 161 },
+  { text: "", time: 165 },
+  { text: "Ella sabía que él sabía", time: 170 },
+  { text: "Que algún día pasaría", time: 172 },
+  { text: "Que vendría él a buscarla", time: 174 },
+  { text: "Con sus flores amarillas", time: 176 },
+  { text: "", time: 181 },
+  { text: "No te apures, no detengas", time: 182 },
+  { text: "El instante del encuentro", time: 184 },
+  { text: "Está dicho que es un hecho", time: 186 },
+  { text: "No la pierdas, no hay derecho", time: 188 },
+  { text: "No te olvides que la vida", time: 190 },
+  { text: "Casi nunca está dormida", time: 194 },
+  { text: "", time: 198 },
+  { text: "Ella sabía que él sabía", time: 199 },
+  { text: "Él sabía, ella sabía", time: 202 },
+  { text: "Que él sabía, ella sabía", time: 204 },
+  { text: "Y se olvidaron de sus", time: 206 },
+  { text: "Flores amarillas", time: 208 },
+  { text: "", time: 214 }
 ];
 
 // Animar las letras
 function updateLyrics() {
-  var time = Math.floor(audio.currentTime);
-  var currentLine = lyricsData.find(
-    (line) => time >= line.time && time < line.time + 6
-  );
+  var currentTime = audio.currentTime;
+  var currentLineIndex = -1;
 
-  if (currentLine) {
-    // Calcula la opacidad basada en el tiempo en la línea actual
-    var fadeInDuration = 0.1; // Duración del efecto de aparición en segundos
-    var opacity = Math.min(1, (time - currentLine.time) / fadeInDuration);
+  for (var index = 0; index < lyricsData.length; index++) {
+    if (currentTime >= lyricsData[index].time) {
+      currentLineIndex = index;
+    } else {
+      break;
+    }
+  }
 
-    // Aplica el efecto de aparición
-    lyrics.style.opacity = opacity;
-    lyrics.innerHTML = currentLine.text;
+  if (currentLineIndex !== -1 && lyricsData[currentLineIndex].text.trim() !== "") {
+    lyrics.innerHTML = lyricsData[currentLineIndex].text;
+    lyrics.style.opacity = 1;
   } else {
-    // Restablece la opacidad y el contenido si no hay una línea actual
-    lyrics.style.opacity = 0;
     lyrics.innerHTML = "";
+    lyrics.style.opacity = 0;
   }
 }
 
-setInterval(updateLyrics, 1000);
+audio.addEventListener("timeupdate", updateLyrics);
 
 //funcion titulo
-// Función para ocultar el título después de 216 segundos
+// Función para ocultar el título después de 223 segundos
 function ocultarTitulo() {
   var titulo = document.querySelector(".titulo");
   titulo.style.animation =
@@ -68,5 +108,5 @@ function ocultarTitulo() {
   }, 3000); // Espera 3 segundos antes de ocultar completamente
 }
 
-// Llama a la función después de 216 segundos (216,000 milisegundos)
-setTimeout(ocultarTitulo, 216000);
+// Llama a la función después de 223 segundos (223,000 milisegundos), duración del audio actual
+setTimeout(ocultarTitulo, 223000);
