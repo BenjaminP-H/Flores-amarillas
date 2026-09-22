@@ -110,3 +110,24 @@ function ocultarTitulo() {
 
 // Llama a la función después de 223 segundos (223,000 milisegundos), duración del audio actual
 setTimeout(ocultarTitulo, 223000);
+
+// Manejo y desbloqueo de audio en dispositivos móviles (iOS / Android)
+function asegurarReproduccionAudio() {
+  if (!audio) return;
+  var promesa = audio.play();
+  if (promesa !== undefined) {
+    promesa.catch(function () {
+      // Si el navegador móvil bloqueó el autoplay sin interacción, activamos al primer toque
+      function activarAlTocar() {
+        audio.play();
+        document.removeEventListener("click", activarAlTocar);
+        document.removeEventListener("touchstart", activarAlTocar);
+      }
+      document.addEventListener("click", activarAlTocar, { once: true });
+      document.addEventListener("touchstart", activarAlTocar, { once: true });
+    });
+  }
+}
+
+window.addEventListener("DOMContentLoaded", asegurarReproduccionAudio);
+window.addEventListener("load", asegurarReproduccionAudio);
