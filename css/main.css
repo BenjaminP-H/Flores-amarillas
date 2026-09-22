@@ -1630,11 +1630,17 @@ body {
 .flower__grass,
 .long-g,
 .grow-ans,
-.night,
+.night {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
 #lyrics,
 .titulo {
   will-change: transform, opacity;
-  transform: translateZ(0);
+  transform: translateX(-50%) translateZ(0);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
